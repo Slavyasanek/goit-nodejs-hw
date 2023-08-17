@@ -1,2 +1,2 @@
-const contactSchema = require('./contactSchema');
-module.exports = { contactSchema };
+const {contactSchema, emptyObjectSchema} = require('./contactSchema');
+module.exports = { contactSchema, emptyObjectSchema };
