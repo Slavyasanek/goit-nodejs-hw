@@ -38,10 +38,12 @@ const favoriteSchema = Joi.object({
     favorite: Joi.boolean().required().messages({ "any.required": 'missing field favourite' })
 }).length(1).required()
 
+const emptyFavouriteSchema = Joi.object().min(1).required().messages({ "object.min": 'missing field favourite' })
+
 const Contact = mongoose.model("contact", contact);
 
 const schemas = {
-    contactSchema, emptyObjectSchema, favoriteSchema
+    contactSchema, emptyObjectSchema, favoriteSchema, emptyFavouriteSchema
 }
 
 module.exports = { Contact, schemas }
