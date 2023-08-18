@@ -49,7 +49,7 @@ const updateContact = async (contactId, body) => {
     const contacts = await listContacts();
     const contactToFind = contacts.findIndex(({ id }) => id === contactId);
     if (contactToFind === -1) return null;
-    contacts[contactToFind] = { contactId, ...body };
+    contacts[contactToFind] = { id: contactId, ...body };
     await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
     return contacts[contactToFind]
   } catch (error) {
