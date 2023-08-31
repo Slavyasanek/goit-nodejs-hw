@@ -19,6 +19,10 @@ const contact = new Schema({
         type: Boolean,
         default: false,
     },
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: 'user',
+    }
 }, { versionKey: false })
 
 contact.post("save", handleMongooseError);
@@ -46,4 +50,4 @@ const schemas = {
     contactSchema, emptyObjectSchema, favoriteSchema, emptyFavouriteSchema
 }
 
-module.exports = { Contact, schemas }
+module.exports = { Contact, schemas}
