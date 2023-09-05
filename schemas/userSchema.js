@@ -20,7 +20,8 @@ const user = new Schema({
         enum: subscriptionValues,
         default: "starter"
     },
-    token: String
+    token: String,
+    avatarURL: String,
 }, { versionKey: false })
 
 user.post("save", handleMongooseError);
