@@ -36,6 +36,9 @@ const verifyToken = async (req, res) => {
     if (!user) {
         throw HttpError(404, "User was not found");
     }
+    if (user.verify) {
+        throw HttpError(404, "Verification has already been passed")
+    }
     await User.findByIdAndUpdate(user._id, {
         verify: true,
         verificationToken: null
@@ -66,6 +69,9 @@ const login = async (req, res) => {
     const currentUser = await User.findOne({ email })
     if (!currentUser) {
         throw HttpError(401, "Email or password is wrong");
+    }
+    if (!currentUser.verify) {
+        throw HttpError(404, "Verification hasn`t been passed")
     }
     const comparedPassword = await bcrypt.compare(password, currentUser.password)
     if (!comparedPassword) {
