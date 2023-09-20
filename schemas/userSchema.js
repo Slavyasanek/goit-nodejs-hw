@@ -22,6 +22,14 @@ const user = new Schema({
     },
     token: String,
     avatarURL: String,
+    verify: {
+        type: Boolean,
+        default: false,
+    },
+    verificationToken: {
+        type: String,
+        required: [true, 'Verify token is required'],
+    },
 }, { versionKey: false })
 
 user.post("save", handleMongooseError);
@@ -36,9 +44,13 @@ const userSchema = Joi.object({
 })
 
 const subSchema = Joi.object({
-    subscription: Joi.string().valid(...subscriptionValues).required().messages({"any.only": "Subscription can be only a type of starter, business or pro"})
+    subscription: Joi.string().valid(...subscriptionValues).required().messages({ "any.only": "Subscription can be only a type of starter, business or pro" })
 }).length(1).required()
+
+const emailSchema = Joi.object({
+    email: Joi.string().required().label("email").email().messages({ "any.required": "missing email value" }),
+})
 
 const User = mongoose.model("user", user)
 
-module.exports = { User, userSchema, subSchema};
+module.exports = { User, userSchema, subSchema, emailSchema };
